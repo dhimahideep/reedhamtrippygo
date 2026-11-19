@@ -294,7 +294,7 @@ export const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#F5F5F7] flex flex-col text-[#1D1D1F]">
       {/* 1. Unified Sticky Frosted-Glass Header */}
-      <div className="sticky top-0 z-30 bg-[#F5F5F7]/85 backdrop-blur-xl border-b border-black/[0.08]">
+      <div className="sticky top-0 z-30 bg-white/85 backdrop-blur-md border-b border-black/[0.08]">
         <TopGlobalBar
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}

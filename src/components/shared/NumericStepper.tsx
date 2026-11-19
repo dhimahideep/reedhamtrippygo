@@ -43,20 +43,20 @@ export const NumericStepper: React.FC<NumericStepperProps> = ({
 
   return (
     <div
-      className={`inline-flex items-center justify-between bg-white border border-[rgba(55,53,47,0.14)] rounded-lg p-1 shadow-[0_1px_2px_rgba(15,15,15,0.04)] min-w-[132px] h-10 select-none ${className}`}
+      className={`inline-flex items-center justify-between bg-white border border-[#D2D2D7] rounded-lg p-1 shadow-[0_1px_2px_rgba(0,0,0,0.04)] min-w-[132px] h-10 select-none ${className}`}
     >
       <button
         type="button"
         onClick={handleDecrement}
         disabled={!canDecrement}
-        className="w-8 h-8 rounded-[6px] bg-[#2383E2] hover:bg-[#0077D4] active:scale-95 text-white flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] transition-all duration-150 disabled:opacity-40 disabled:pointer-events-none cursor-pointer shrink-0"
+        className="w-8 h-8 rounded-[6px] bg-[#1D1D1F] hover:bg-[#000000] active:scale-95 text-white flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] transition-all duration-150 disabled:opacity-30 disabled:pointer-events-none cursor-pointer shrink-0"
         title="Decrease"
         aria-label="Decrease value"
       >
         <Minus className="w-4 h-4 stroke-[2.5]" />
       </button>
 
-      <span className="px-3 text-[15px] font-semibold text-[#37352F] tabular-nums select-none text-center flex-1 truncate">
+      <span className="px-3 text-[15px] font-semibold text-[#1D1D1F] tabular-nums select-none text-center flex-1 truncate">
         {labelFormat ? labelFormat(value) : value}
       </span>
 
@@ -64,7 +64,7 @@ export const NumericStepper: React.FC<NumericStepperProps> = ({
         type="button"
         onClick={handleIncrement}
         disabled={!canIncrement}
-        className="w-8 h-8 rounded-[6px] bg-[#2383E2] hover:bg-[#0077D4] active:scale-95 text-white flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] transition-all duration-150 disabled:opacity-40 disabled:pointer-events-none cursor-pointer shrink-0"
+        className="w-8 h-8 rounded-[6px] bg-[#1D1D1F] hover:bg-[#000000] active:scale-95 text-white flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] transition-all duration-150 disabled:opacity-30 disabled:pointer-events-none cursor-pointer shrink-0"
         title="Increase"
         aria-label="Increase value"
       >

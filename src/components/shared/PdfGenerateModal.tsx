@@ -48,19 +48,19 @@ export const PdfGenerateModal: React.FC<PdfGenerateModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-[2px] select-none animate-in fade-in duration-150">
-      <div className="bg-white rounded-xl shadow-[0_20px_48px_rgba(15,15,15,0.16)] border border-[rgba(55,53,47,0.1)] max-w-md w-full overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/25 backdrop-blur-md transition-opacity duration-200 select-none animate-in fade-in">
+      <div className="bg-white/95 backdrop-blur-xl rounded-xl shadow-[0_24px_60px_rgba(0,0,0,0.16)] border border-black/[0.08] max-w-md w-full overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         {/* Header */}
-        <div className="p-4 bg-[#2383E2] text-white flex items-center justify-between shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
+        <div className="p-4 bg-[#1D1D1F] text-white flex items-center justify-between shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-white/15 text-white flex items-center justify-center border border-white/20">
+            <div className="w-9 h-9 rounded-lg bg-white/10 text-white flex items-center justify-center border border-white/15">
               <FileCheck className="w-5 h-5" strokeWidth={2} />
             </div>
             <div>
               <h3 className="text-sm font-semibold text-white tracking-tight">
                 PDF Quotation Generated
               </h3>
-              <p className="text-xs text-white/80 mt-0.5">
+              <p className="text-xs text-white/70 mt-0.5">
                 {proposal.code} · Ready for presentation
               </p>
             </div>
@@ -76,76 +76,75 @@ export const PdfGenerateModal: React.FC<PdfGenerateModalProps> = ({
 
         {/* Body Summary */}
         <div className="p-4 space-y-3.5 text-xs">
-          <div className="bg-[#F7F7F5]/70 border border-[rgba(55,53,47,0.08)] rounded-lg p-3 space-y-2">
-            <div className="flex justify-between items-center text-[#787774]">
+          <div className="bg-[#F5F5F7] border border-black/[0.08] rounded-lg p-3 space-y-2">
+            <div className="flex justify-between items-center text-[#6E6E73]">
               <span>Client Name:</span>
-              <span className="font-semibold text-[#37352F]">{proposal.clientName}</span>
+              <span className="font-semibold text-[#1D1D1F]">{proposal.clientName}</span>
             </div>
-            <div className="flex justify-between items-center text-[#787774]">
+            <div className="flex justify-between items-center text-[#6E6E73]">
               <span>Trip Duration:</span>
-              <span className="font-medium text-[#37352F]">{proposal.nights}N / {proposal.days}D</span>
+              <span className="font-medium text-[#1D1D1F]">{proposal.nights}N / {proposal.days}D</span>
             </div>
-            <div className="flex justify-between items-center text-[#787774]">
+            <div className="flex justify-between items-center text-[#6E6E73]">
               <span>Final Client Selling Price:</span>
-              <span className="font-semibold text-[#37352F] text-sm tabular-nums">
+              <span className="font-semibold text-[#1D1D1F] text-sm tabular-nums">
                 {formatINR(commercials.totalClientSellingPrice)}
               </span>
             </div>
-            <div className="flex justify-between items-center text-[#787774]">
+            <div className="flex justify-between items-center text-[#6E6E73]">
               <span>Export Layout:</span>
-              <span className="font-medium text-[#2383E2]">4-Page Luxury Dark Edition</span>
+              <span className="font-medium text-[#1D1D1F]">4-Page Luxury Dark Edition</span>
             </div>
           </div>
 
-          <div className="text-[11.5px] text-[#787774] leading-relaxed">
-            All 4 pages (Cover, Flight & Hotel Stays, Day-by-Day Itinerary, and Commercial Inclusions) are formatted to exact international A4 dimensions for high-resolution client export.
+          <div className="text-[11.5px] text-[#6E6E73] leading-relaxed">
+            The proposal document contains cover photography, day-by-day narrative, boarding passes, confirmed hotel accommodations, itemized inclusions, and gross quotation.
           </div>
 
-          {/* Action Buttons */}
-          <div className="space-y-2 pt-1">
+          {/* Action Grid */}
+          <div className="grid grid-cols-2 gap-2 pt-1">
             <button
               onClick={handlePrint}
-              className="tactile-button-primary w-full h-10 text-[13px] flex items-center justify-center gap-2 rounded-lg"
+              className="tactile-button-primary h-10 px-3 rounded-lg text-xs font-medium flex items-center justify-center gap-2 cursor-pointer"
             >
-              <Printer className="w-4 h-4" strokeWidth={1.75} />
-              <span>Print / Save as PDF (Window Print)</span>
+              <Printer className="w-3.5 h-3.5" />
+              <span>Print / Save PDF</span>
             </button>
 
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                onClick={handleCopyLink}
-                className="tactile-button-secondary h-9 px-3 text-[12.5px] flex items-center justify-center gap-1.5 rounded-lg"
-              >
-                {copied ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Link Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Share2 className="w-3.5 h-3.5 text-[#787774]" />
-                    <span>Copy Client Link</span>
-                  </>
-                )}
-              </button>
+            <button
+              onClick={handleCopyLink}
+              className="tactile-button-secondary h-10 px-3 rounded-lg text-xs font-medium flex items-center justify-center gap-2 cursor-pointer"
+            >
+              {copied ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-[#1D1D1F]" strokeWidth={2.5} />
+                  <span>Link Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Share2 className="w-3.5 h-3.5" />
+                  <span>Share Client Link</span>
+                </>
+              )}
+            </button>
+          </div>
 
-              <button
-                onClick={handleDownloadJSON}
-                className="tactile-button-secondary h-9 px-3 text-[12.5px] flex items-center justify-center gap-1.5 rounded-lg"
-              >
-                <Download className="w-3.5 h-3.5 text-[#787774]" />
-                <span>Export JSON Payload</span>
-              </button>
-            </div>
+          <div className="pt-1">
+            <button
+              onClick={handleDownloadJSON}
+              className="w-full text-center py-1.5 text-[11px] text-[#86868B] hover:text-[#1D1D1F] transition-colors flex items-center justify-center gap-1 cursor-pointer font-medium"
+            >
+              <Download className="w-3 h-3" />
+              <span>Export Raw JSON Data Backup</span>
+            </button>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="px-4 py-2.5 bg-[#F7F7F5] border-t border-[rgba(55,53,47,0.08)] flex items-center justify-between text-xs text-[#787774]">
-          <span>TrippyGo Enterprise PDF Engine</span>
+        <div className="px-4 py-2.5 bg-[#F5F5F7] border-t border-black/[0.08] flex justify-end">
           <button
             onClick={onClose}
-            className="text-xs font-medium text-[#37352F] hover:underline cursor-pointer"
+            className="tactile-button-secondary h-8 px-3 rounded-lg text-xs font-medium"
           >
             Close
           </button>
