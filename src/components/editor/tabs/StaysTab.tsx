@@ -53,18 +53,18 @@ export const StaysTab: React.FC<StaysTabProps> = ({
 
   return (
     <div className="space-y-4 pb-6 select-none">
-      {/* 1. Header Toolbar Card: ONLY ONE PRIMARY BUTTON */}
-      <div className="bg-white rounded-xl border border-[rgba(55,53,47,0.09)] p-4 shadow-[0_1px_2px_rgba(15,15,15,0.04)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      {/* 1. Header Toolbar Card */}
+      <div className="bg-white rounded-xl border border-black/[0.08] p-4 shadow-[0_1px_3px_rgba(0,0,0,0.04)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2.5">
-            <h2 className="text-[16px] font-semibold text-[#37352F]">
+            <h2 className="text-[16px] font-semibold text-[#1D1D1F] tracking-tight">
               Accommodations & Board Plans
             </h2>
-            <span className="rounded-md bg-[#F7F7F5] border border-[rgba(55,53,47,0.08)] text-[#787774] text-[12px] font-medium px-2 py-0.5 tabular-nums">
+            <span className="rounded-md bg-[#F5F5F7] border border-[#D2D2D7] text-[#1D1D1F] text-[12px] font-medium px-2 py-0.5 tabular-nums">
               {stays.length} {stays.length === 1 ? 'Property' : 'Properties'}
             </span>
           </div>
-          <p className="text-[13px] text-[#787774] mt-0.5">
+          <p className="text-[13px] text-[#6E6E73] mt-0.5 font-medium">
             Properties configured here render under Confirmed Accommodations on Page 3 of the proposal.
           </p>
         </div>
@@ -80,28 +80,28 @@ export const StaysTab: React.FC<StaysTabProps> = ({
       </div>
 
       {/* 2. Chronological List Card */}
-      <div className="bg-white rounded-xl border border-[rgba(55,53,47,0.09)] shadow-[0_1px_2px_rgba(15,15,15,0.04)] overflow-hidden">
-        <div className="px-4 py-3 bg-[#F7F7F5] border-b border-[rgba(55,53,47,0.09)] flex items-center justify-between">
-          <h3 className="text-[11.5px] font-bold uppercase tracking-wider text-[#787774]">
+      <div className="bg-white rounded-xl border border-black/[0.08] shadow-[0_1px_3px_rgba(0,0,0,0.04)] overflow-hidden">
+        <div className="px-4 py-3 bg-[#F5F5F7] border-b border-black/[0.08] flex items-center justify-between">
+          <h3 className="text-[11.5px] font-bold uppercase tracking-wider text-[#6E6E73]">
             Confirmed Properties Itinerary
           </h3>
-          <span className="text-[12px] text-[#9B9A97]">
+          <span className="text-[12px] text-[#86868B] font-medium">
             Chronological stay order
           </span>
         </div>
 
         {stays.length === 0 ? (
           <div className="py-12 px-4 text-center">
-            <Building2 className="w-8 h-8 text-[#9B9A97]/40 mx-auto mb-2" strokeWidth={1.5} />
-            <p className="text-[14.5px] font-semibold text-[#37352F]">
+            <Building2 className="w-8 h-8 text-[#86868B]/40 mx-auto mb-2" strokeWidth={1.5} />
+            <p className="text-[14.5px] font-semibold text-[#1D1D1F]">
               No accommodations configured yet
             </p>
-            <p className="text-[12.5px] text-[#9B9A97] mt-1 max-w-sm mx-auto">
+            <p className="text-[12.5px] text-[#6E6E73] mt-1 max-w-sm mx-auto">
               Click "Add Stay" to configure hotels, resorts, and meal plans for this itinerary.
             </p>
           </div>
         ) : (
-          <div className="divide-y divide-[rgba(55,53,47,0.06)]">
+          <div className="divide-y divide-black/[0.06]">
             {stays.map((stay) => {
               const rangeText = stay.nightRangeStart === stay.nightRangeEnd
                 ? `Night ${stay.nightRangeStart}`
@@ -111,34 +111,34 @@ export const StaysTab: React.FC<StaysTabProps> = ({
               return (
                 <div
                   key={stay.id}
-                  className="px-4 py-3.5 hover:bg-[#F7F7F5]/50 transition-colors"
+                  className="px-4 py-3.5 hover:bg-[#F5F5F7]/70 transition-colors"
                 >
                   <div className="flex items-center justify-between gap-3">
                     {/* Left: Night range badge, Hotel & City, Room Category, Meal Plan */}
                     <div className="flex items-center gap-3 min-w-0">
-                      <span className="px-2.5 py-1 rounded-md bg-[#2383E2] text-white text-[12px] font-semibold tabular-nums shrink-0 shadow-[0_1px_2px_rgba(35,131,226,0.25)]">
+                      <span className="px-2.5 py-1 rounded-md bg-[#1D1D1F] text-white text-[12px] font-semibold tabular-nums shrink-0 shadow-[0_1px_2px_rgba(0,0,0,0.15)]">
                         {rangeText}
                       </span>
 
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-[15px] font-semibold text-[#37352F] truncate">
+                          <span className="text-[15px] font-semibold text-[#1D1D1F] truncate">
                             {stay.hotelName}
                           </span>
-                          <span className="text-[13px] text-[#787774] font-medium">
+                          <span className="text-[13px] text-[#6E6E73] font-medium">
                             • {stay.city}
                           </span>
-                          <div className="flex items-center text-amber-500">
+                          <div className="flex items-center text-[#1D1D1F]">
                             {Array.from({ length: stay.rating || 5 }).map((_, i) => (
-                              <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
+                              <Star key={i} className="w-3 h-3 fill-[#1D1D1F] text-[#1D1D1F]" />
                             ))}
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-2 mt-0.5 text-[12.5px] text-[#787774] flex-wrap">
-                          <span className="text-[#37352F] font-medium">{stay.roomCategory}</span>
+                        <div className="flex items-center gap-2 mt-0.5 text-[12.5px] text-[#6E6E73] flex-wrap">
+                          <span className="text-[#1D1D1F] font-medium">{stay.roomCategory}</span>
                           <span>•</span>
-                          <span className="inline-flex items-center px-1.5 py-0.2 rounded-md bg-[#F7F7F5] border border-[rgba(55,53,47,0.08)] text-[11.5px] font-semibold text-[#37352F]">
+                          <span className="inline-flex items-center px-1.5 py-0.2 rounded-md bg-[#F5F5F7] border border-[#D2D2D7] text-[11.5px] font-semibold text-[#1D1D1F]">
                             {stay.mealPlan}: {plan?.name || stay.mealPlan}
                           </span>
                           <span className="tabular-nums">({stay.nights} {stay.nights === 1 ? 'Night' : 'Nights'})</span>
@@ -159,7 +159,7 @@ export const StaysTab: React.FC<StaysTabProps> = ({
                       <button
                         type="button"
                         onClick={() => handleDelete(stay.id)}
-                        className="p-1.5 rounded-md text-[#9B9A97] hover:text-[#DC2626] hover:bg-red-50 transition-colors cursor-pointer"
+                        className="p-1.5 rounded-md text-[#86868B] hover:text-[#1D1D1F] hover:bg-black/5 transition-colors cursor-pointer"
                         title="Delete property"
                       >
                         <Trash2 className="w-3.5 h-3.5" strokeWidth={1.75} />
@@ -169,8 +169,8 @@ export const StaysTab: React.FC<StaysTabProps> = ({
 
                   {/* Notes / Special Privileges */}
                   {stay.notes && (
-                    <div className="mt-2 text-[12px] text-[#787774] bg-[#F7F7F5] border border-[rgba(55,53,47,0.06)] px-3 py-1.5 rounded-lg">
-                      <span className="font-semibold text-[#37352F]">Privileges:</span> {stay.notes}
+                    <div className="mt-2 text-[12px] text-[#6E6E73] bg-[#F5F5F7] border border-black/[0.06] px-3 py-1.5 rounded-lg">
+                      <span className="font-semibold text-[#1D1D1F]">Privileges:</span> {stay.notes}
                     </div>
                   )}
                 </div>

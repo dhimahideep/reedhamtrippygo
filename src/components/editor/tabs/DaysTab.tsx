@@ -4,7 +4,6 @@ import {
   Plus, 
   Trash2, 
   Building2, 
-  Image as ImageIcon, 
   X, 
   FileText, 
   Sparkles, 
@@ -101,151 +100,96 @@ export const DaysTab: React.FC<DaysTabProps> = ({
       if (isLastDay) {
         return {
           dayNumber,
-          title: `Farewell ${activeDest} — Artisanal Souvenirs & Airport Chauffeur`,
-          description: `Enjoy a leisurely breakfast followed by a final morning stroll through local boutique markets and historical avenues. Your private chauffeur escorts you to the airport terminal for your return flight with expedited check-in assistance.`,
-          overnightStay: 'Departure / Return Flight',
-          highlights: ['Artisanal Bazaar Walk', 'Private Airport Transfer', 'VIP Departure Assistance']
+          title: `Farewell ${primaryDest} — Private Chauffeur Airport Transfer`,
+          description: `Enjoy an indulgent breakfast at your hotel followed by late check-out privileges. Enjoy morning souvenir shopping at local artisanal boutiques before your chauffeur escorts you to the departure terminal for your scheduled flight home.`,
+          overnightStay: 'Return Flight Sector',
+          highlights: ['Gourmet Breakfast', 'Late Check-out Privileges', 'Private Airport Chauffeur']
         };
       }
 
-      const midTemplates = [
-        {
-          title: `Curated Heritage & Old Town Architectural Walk in ${activeDest}`,
-          description: `Embark on an immersive private journey through historic architectural landmarks, UNESCO-listed fortifications, and royal grounds led by our certified local historian. Savor an exclusive chef-curated lunch of regional delicacies at a landmark restaurant.`,
-          highlights: ['Certified Historian Guide', 'Architectural Landmarks', 'Regional Tasting Experience']
-        },
-        {
-          title: `Panoramic Scenic Excursion & Natural Landscapes Trail`,
-          description: `Board a first-class panoramic private vehicle journey through picturesque valleys, ancient petroglyphs, and burning mountain phenomena. Ascend to scenic viewpoints for breathtaking panoramas and photography.`,
-          highlights: ['Panoramic Landscape Tour', 'Private Executive Vehicle', 'Scenic Mountain Viewpoint']
-        },
-        {
-          title: `Exclusive Private Chartered Cruise & Golden Hour Sunset`,
-          description: `Sail across tranquil azure waters aboard a private chartered yacht with vintage refreshments and hors d'oeuvres on board. Watch the dramatic sunset dip below the horizon followed by fine dining on the waterfront promenade.`,
-          highlights: ['Private Chartered Boat', 'Golden Hour Sunset Toast', 'Waterfront Fine Dining']
-        },
-        {
-          title: `Artisanal Workshops & Gastronomic Food Trail`,
-          description: `Discover behind-the-scenes ateliers of master carpet weavers and copper artisans. Savor handcrafted delicacies, rare cheeses, and local vintages guided by a regional sommelier. Afternoon at leisure in your hotel spa sanctuary.`,
-          highlights: ['Master Artisan Workshop', 'Gastronomic Trail', 'Luxury Spa Sanctuary']
-        }
-      ];
-
-      const template = midTemplates[(dayNumber - 2) % midTemplates.length];
       return {
         dayNumber,
-        title: template.title,
-        description: template.description,
+        title: `Curated Discovery of ${activeDest} — Private Guided Exploration`,
+        description: `Full-day bespoke excursion with an English-speaking certified private historian. Discover ancient architectural heritage, vibrant cultural boulevards, and dine at a curated Michelin-recommended venue before returning to your retreat.`,
         overnightStay: hotelDesc,
-        highlights: template.highlights
+        highlights: ['Private Cultural Historian', 'Panoramic Scenic Lookouts', 'Curated Fine Dining']
       };
     });
 
     onChange(generatedDays);
-    setActiveDayIndex(0);
     if (onShowToast) {
-      onShowToast('success', 'Itinerary Crafted', `Generated rich bespoke schedules for all ${generatedDays.length} days.`);
+      onShowToast('success', 'AI Itinerary Crafted', `Populated ${generatedDays.length} full days with rich narratives.`);
     }
-  };
-
-  const handleAutoFillSingleDay = () => {
-    const destName = destinations[activeDayIndex % (destinations.length || 1)] || 'the destination';
-    const suggestions: Record<number, { title: string; desc: string; highlights: string[] }> = {
-      1: {
-        title: `Arrival in ${destName} — VIP Airport Welcome & Private Transfer`,
-        desc: `Arrive at the international airport terminal. Clear priority customs and meet your private chauffeur for an escorted transfer to your luxury property. Evening at leisure with signature welcome cocktails overlooking the skyline.`,
-        highlights: ['VIP Arrival Meet & Greet', 'Private Chauffeur Transfer', 'Welcome Cocktail Reception']
-      },
-      2: {
-        title: `Curated Heritage & Cultural Highlights of ${destName}`,
-        desc: `Embark on an immersive private journey through historic architectural landmarks, museums, and royal grounds led by our certified local historian guide. Savor an exclusive chef-curated lunch of regional delicacies.`,
-        highlights: ['Certified Historian Guide', 'Architectural Landmarks', 'Regional Tasting Experience']
-      },
-      3: {
-        title: `Scenic Excursion & Nature Trail Expedition`,
-        desc: `Board a first-class panoramic rail journey through picturesque valleys and crystal-clear lakes. Ascend to scenic viewpoints for breathtaking panoramas and light mountain hiking.`,
-        highlights: ['Panoramic Rail Journey', 'Mountain Viewpoint', 'Alpine Meadow Stroll']
-      },
-      4: {
-        title: `Exclusive Private Chartered Cruise & Golden Hour Sunset`,
-        desc: `Sail across tranquil azure waters aboard a private chartered vessel with vintage refreshments on board. Watch the dramatic sunset dip below the horizon followed by fine dining.`,
-        highlights: ['Private Chartered Boat', 'Sunset Champagne Toast', 'Seaside Dining']
-      },
-      5: {
-        title: `Artisanal Workshops & Gastronomic Food Trail`,
-        desc: `Discover behind-the-scenes ateliers of master artisans and savor handcrafted delicacies, rare cheeses, and local vintages. Afternoon at your resort spa sanctuary.`,
-        highlights: ['Master Artisan Workshop', 'Gastronomic Trail', 'Luxury Spa Sanctuary']
-      }
-    };
-
-    const template = suggestions[(activeDayIndex + 1) as keyof typeof suggestions] || {
-      title: `Private Excursion & Sightseeing in ${destName}`,
-      desc: `A bespoke full-day itinerary customized to your personal pace, featuring handpicked highlights, private transport, and priority skip-the-line entrance tickets throughout the day.`,
-      highlights: ['Bespoke Chauffeur Vehicle', 'Skip-the-Line Tickets', 'Tailored Day Schedule']
-    };
-
-    handleUpdateCurrentDay({
-      title: template.title,
-      description: template.desc,
-      highlights: template.highlights
-    });
   };
 
   const handleAddHighlight = () => {
     if (!newHighlight.trim() || !currentDay) return;
-    const highlights = currentDay.highlights || [];
-    handleUpdateCurrentDay({ highlights: [...highlights, newHighlight.trim()] });
+    const existing = currentDay.highlights || [];
+    if (!existing.includes(newHighlight.trim())) {
+      handleUpdateCurrentDay({ highlights: [...existing, newHighlight.trim()] });
+    }
     setNewHighlight('');
   };
 
-  const handleRemoveHighlight = (idx: number) => {
-    if (!currentDay || !currentDay.highlights) return;
+  const handleRemoveHighlight = (highlightToRemove: string) => {
+    if (!currentDay) return;
+    const existing = currentDay.highlights || [];
     handleUpdateCurrentDay({
-      highlights: currentDay.highlights.filter((_, i) => i !== idx)
+      highlights: existing.filter(h => h !== highlightToRemove)
     });
   };
 
-  if (!currentDay) {
-    return null;
-  }
+  const handleAutoFillSingleDay = () => {
+    if (!currentDay) return;
+    const dest = destinations[0] || 'Destination';
+    const dayNum = currentDay.dayNumber;
+    
+    handleUpdateCurrentDay({
+      title: `Day ${dayNum} in ${dest} — Curated Private Excursion`,
+      description: `Experience the finest cultural highlights of ${dest} with an exclusive private morning tour, priority access to historical monuments, and an evening at leisure enjoying world-class regional hospitality.`,
+      highlights: ['Private Historic Tour', 'Priority Venue Access', 'Curated Culinary Dining']
+    });
 
-  const matchedStay = stays.find(
-    s => currentDay.dayNumber >= s.nightRangeStart && currentDay.dayNumber <= s.nightRangeEnd
-  );
+    if (onShowToast) {
+      onShowToast('info', `Day ${dayNum} Refined`, 'Generated customized highlights and summary.');
+    }
+  };
+
+  if (!currentDay) return null;
 
   return (
     <div className="space-y-4 pb-6 select-none">
-      {/* 1. Header Toolbar Card: Craft All Days + Add Day */}
-      <div className="bg-white rounded-xl border border-[rgba(55,53,47,0.09)] p-4 shadow-[0_1px_2px_rgba(15,15,15,0.04)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      {/* 1. Header Toolbar Card */}
+      <div className="bg-white rounded-xl border border-black/[0.08] p-4 shadow-[0_1px_3px_rgba(0,0,0,0.04)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2.5">
-            <h2 className="text-[16px] font-semibold text-[#37352F]">
-              Day-by-Day Itinerary Schedule
+            <h2 className="text-[16px] font-semibold text-[#1D1D1F] tracking-tight">
+              Day-by-Day Itinerary Builder
             </h2>
-            <span className="rounded-md bg-[#F7F7F5] border border-[rgba(55,53,47,0.08)] text-[#787774] text-[12px] font-medium px-2 py-0.5 tabular-nums">
+            <span className="rounded-md bg-[#F5F5F7] border border-[#D2D2D7] text-[#1D1D1F] text-[12px] font-medium px-2 py-0.5 tabular-nums">
               {days.length} {days.length === 1 ? 'Day' : 'Days'}
             </span>
           </div>
-          <p className="text-[13px] text-[#787774] mt-0.5">
-            Daily narrative, highlights, and overnight stays rendered chronologically on Page 2.
+          <p className="text-[13px] text-[#6E6E73] mt-0.5 font-medium">
+            Daily experiences, private guided excursions, and verified stay connections printed on Page 2.
           </p>
         </div>
 
-        {/* Right Actions: Craft All Days + Add Day */}
+        {/* Right Actions: Craft All Days AI + Add Day */}
         <div className="flex items-center gap-2 shrink-0">
           <button
             type="button"
             onClick={handleCraftAllDays}
-            className="tactile-button-ai h-10 px-3.5 rounded-lg text-[13.5px] inline-flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
+            className="tactile-button-ai h-10 px-3.5 rounded-lg text-[13.5px] inline-flex items-center gap-1.5 whitespace-nowrap cursor-pointer font-medium"
           >
-            <Sparkles className="w-3.5 h-3.5 text-[#2383E2]" />
+            <Sparkles className="w-3.5 h-3.5 text-[#1D1D1F]" />
             <span>Craft All Days</span>
           </button>
 
           <button
             type="button"
             onClick={handleAddDay}
-            className="tactile-button-primary h-10 px-3.5 rounded-lg text-[13.5px] inline-flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
+            className="tactile-button-primary h-10 px-3.5 rounded-lg text-[13.5px] inline-flex items-center gap-1.5 whitespace-nowrap cursor-pointer font-medium"
           >
             <Plus className="w-3.5 h-3.5" strokeWidth={2.25} />
             <span>Add Day</span>
@@ -255,7 +199,7 @@ export const DaysTab: React.FC<DaysTabProps> = ({
 
       {/* 2. Top Horizontal Scrollable Day Selector Strip */}
       <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-        <div className="inline-flex items-center gap-1 bg-[#EFECE6]/80 p-1 rounded-lg border border-[rgba(55,53,47,0.08)] shrink-0">
+        <div className="inline-flex items-center gap-1 bg-[#E5E5EA]/70 p-1 rounded-lg border border-black/[0.06] shrink-0">
           {days.map((day, idx) => {
             const isActive = idx === activeDayIndex;
             const dayNumberStr = String(day.dayNumber).padStart(2, '0');
@@ -267,8 +211,8 @@ export const DaysTab: React.FC<DaysTabProps> = ({
                 onClick={() => setActiveDayIndex(idx)}
                 className={`px-3.5 py-1.5 rounded-md text-[13px] font-medium shrink-0 transition-all duration-150 cursor-pointer whitespace-nowrap active:scale-95 ${
                   isActive
-                    ? 'bg-white text-[#37352F] font-semibold shadow-[0_1px_2px_rgba(15,15,15,0.06)]'
-                    : 'text-[#787774] hover:text-[#37352F]'
+                    ? 'bg-white text-[#1D1D1F] font-semibold shadow-[0_1px_2px_rgba(0,0,0,0.06)]'
+                    : 'text-[#6E6E73] hover:text-[#1D1D1F]'
                 }`}
               >
                 Day {dayNumberStr}
@@ -279,14 +223,14 @@ export const DaysTab: React.FC<DaysTabProps> = ({
       </div>
 
       {/* 3. Focused Single-Day Workspace */}
-      <div className="bg-white border border-[rgba(55,53,47,0.09)] rounded-xl shadow-[0_1px_2px_rgba(15,15,15,0.04)] overflow-hidden">
+      <div className="bg-white border border-black/[0.08] rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] overflow-hidden">
         {/* Workspace Card Header */}
-        <div className="px-4 py-3 bg-[#F7F7F5] border-b border-[rgba(55,53,47,0.09)] flex items-center justify-between">
+        <div className="px-4 py-3 bg-[#F5F5F7] border-b border-black/[0.08] flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 rounded-md bg-[#2383E2] text-white text-[11.5px] font-semibold tabular-nums shadow-[0_1px_2px_rgba(35,131,226,0.25)]">
+            <span className="px-2 py-0.5 rounded-md bg-[#1D1D1F] text-white text-[11.5px] font-semibold tabular-nums shadow-[0_1px_2px_rgba(0,0,0,0.15)]">
               Day {String(currentDay.dayNumber).padStart(2, '0')}
             </span>
-            <span className="text-[14px] font-semibold text-[#37352F]">
+            <span className="text-[14px] font-semibold text-[#1D1D1F]">
               Daily Narrative & Highlights
             </span>
           </div>
@@ -295,96 +239,99 @@ export const DaysTab: React.FC<DaysTabProps> = ({
             <button
               type="button"
               onClick={handleAutoFillSingleDay}
-              className="text-[12.5px] text-[#2383E2] hover:underline font-medium inline-flex items-center gap-1 cursor-pointer transition-colors"
+              className="text-[12.5px] text-[#1D1D1F] hover:underline font-medium inline-flex items-center gap-1 cursor-pointer transition-colors"
             >
               <FileText className="w-3.5 h-3.5" />
-              <span>Fill Template</span>
+              <span>Auto-Fill Details</span>
             </button>
 
             {days.length > 1 && (
               <button
                 type="button"
                 onClick={() => handleDeleteDay(activeDayIndex)}
-                className="p-1 rounded-md text-[#9B9A97] hover:text-[#DC2626] hover:bg-red-50 transition-colors cursor-pointer flex items-center gap-1 text-[12px]"
+                className="p-1 rounded-md text-[#86868B] hover:text-[#1D1D1F] hover:bg-black/5 transition-colors cursor-pointer"
                 title="Delete this day"
               >
-                <Trash2 className="w-3.5 h-3.5" strokeWidth={1.75} />
-                <span>Delete</span>
+                <Trash2 className="w-4 h-4" />
               </button>
             )}
           </div>
         </div>
 
+        {/* Workspace Card Body */}
         <div className="p-4 space-y-4">
-          {/* Overnight Stay & Cover Photo Badges */}
-          <div className="flex flex-wrap items-center gap-2">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#F7F7F5] border border-[rgba(55,53,47,0.08)] text-[12.5px] text-[#37352F]">
-              <Building2 className="w-3.5 h-3.5 text-[#2383E2]" strokeWidth={1.75} />
-              <span className="font-medium text-[#787774]">Overnight:</span>
-              <span className="font-semibold text-[#37352F]">
-                {matchedStay ? `${matchedStay.hotelName} (${matchedStay.city})` : (currentDay.overnightStay || 'Hotel')}
-              </span>
-            </div>
-
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#F7F7F5] border border-[rgba(55,53,47,0.08)] text-[12.5px] text-[#37352F]">
-              <ImageIcon className="w-3.5 h-3.5 text-[#787774]" strokeWidth={1.75} />
-              <span className="font-medium text-[#787774]">Photo:</span>
-              <span className="font-semibold text-[#37352F]">
-                Destination Visual
-              </span>
-            </div>
-          </div>
-
           {/* Day Title */}
           <div>
-            <label className="block text-[13px] font-medium text-[#37352F] mb-1.5">
-              Day Headline Title
+            <label className="block text-[13px] font-medium text-[#1D1D1F] mb-1.5">
+              Day Heading / Title
             </label>
             <input
               type="text"
               value={currentDay.title}
               onChange={(e) => handleUpdateCurrentDay({ title: e.target.value })}
-              placeholder="e.g. Mount Pilatus Golden Round Trip"
-              className="h-10 w-full px-3.5 text-[14px] bg-[#F7F7F5]/75 hover:bg-[#F1F1EF]/75 focus:bg-white border border-[rgba(55,53,47,0.12)] focus:border-[#2383E2] focus:ring-3 focus:ring-[#2383E2]/15 rounded-lg text-[#37352F] font-semibold transition-all outline-none"
+              placeholder="e.g. Arrival in Zurich — Scenic Limmat River Cruise & Welcome Dinner"
+              className="w-full h-10 px-3.5 text-[14px] bg-[#F5F5F7] hover:bg-white focus:bg-white border border-[#D2D2D7] rounded-lg focus:outline-none focus:border-[#1D1D1F] focus:ring-2 focus:ring-black/10 text-[#1D1D1F] font-semibold transition-all"
             />
           </div>
 
-          {/* Narrative Description Textarea */}
+          {/* Day Narrative Description */}
           <div>
-            <div className="flex items-center justify-between mb-1.5">
-              <label className="text-[13px] font-medium text-[#37352F]">
-                Day Narrative Description
-              </label>
-              <span className="text-[12px] text-[#9B9A97] tabular-nums">
-                {currentDay.description.length} chars
-              </span>
-            </div>
+            <label className="block text-[13px] font-medium text-[#1D1D1F] mb-1.5">
+              Detailed Daily Narrative Description <span className="text-[#86868B] font-normal">(Printed on Page 2)</span>
+            </label>
             <textarea
               rows={4}
               value={currentDay.description}
               onChange={(e) => handleUpdateCurrentDay({ description: e.target.value })}
-              placeholder="Describe the day's excursions, historical landmarks, transfers, and evening arrangements..."
-              className="w-full px-3.5 py-2.5 text-[14px] bg-[#F7F7F5]/75 hover:bg-[#F1F1EF]/75 focus:bg-white border border-[rgba(55,53,47,0.12)] focus:border-[#2383E2] focus:ring-3 focus:ring-[#2383E2]/15 rounded-lg text-[#37352F] leading-relaxed resize-none transition-all outline-none"
+              placeholder="Provide a vivid description of activities, private chauffeurs, scenic transfers, and meal stops..."
+              className="w-full px-3.5 py-2.5 text-[14px] bg-[#F5F5F7] hover:bg-white focus:bg-white border border-[#D2D2D7] rounded-lg focus:outline-none focus:border-[#1D1D1F] focus:ring-2 focus:ring-black/10 text-[#1D1D1F] leading-relaxed resize-none transition-all"
             />
           </div>
 
-          {/* Highlights Tags Input */}
+          {/* Overnight Accommodation Selector */}
           <div>
-            <label className="block text-[13px] font-medium text-[#37352F] mb-1.5">
-              Key Day Highlights & Sights
+            <label className="block text-[13px] font-medium text-[#1D1D1F] mb-1.5">
+              Overnight Accommodation for Night {currentDay.dayNumber}
             </label>
-            <div className="p-2.5 bg-[#F7F7F5]/70 border border-[rgba(55,53,47,0.09)] rounded-lg space-y-2">
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#86868B]">
+                <Building2 className="w-4 h-4" />
+              </div>
+              <select
+                value={currentDay.overnightStay || ''}
+                onChange={(e) => handleUpdateCurrentDay({ overnightStay: e.target.value })}
+                className="w-full h-10 pl-10 pr-4 text-[13.5px] bg-[#F5F5F7] hover:bg-white focus:bg-white border border-[#D2D2D7] rounded-lg focus:outline-none focus:border-[#1D1D1F] text-[#1D1D1F] font-medium transition-all"
+              >
+                <option value="">Select confirmed accommodation...</option>
+                {stays.map((stay) => (
+                  <option key={stay.id} value={`${stay.hotelName}, ${stay.city}`}>
+                    {stay.hotelName} ({stay.city}) — Nights {stay.nightRangeStart}–{stay.nightRangeEnd} ({stay.roomCategory})
+                  </option>
+                ))}
+                <option value="Overnight Flight / Transit">Overnight Flight / Transit</option>
+                <option value="Return Flight Sector">Return Flight Sector</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Key Experience Highlights */}
+          <div>
+            <label className="block text-[13px] font-medium text-[#1D1D1F] mb-1.5">
+              Key Experience Highlights <span className="text-[#86868B] font-normal">(Bullet tags printed on proposal)</span>
+            </label>
+            <div className="p-3 bg-[#F5F5F7] border border-black/[0.08] rounded-lg space-y-2.5">
               <div className="flex flex-wrap items-center gap-1.5">
-                {(currentDay.highlights || []).map((hl, hIdx) => (
+                {(currentDay.highlights || []).map((highlight, hIdx) => (
                   <span
                     key={hIdx}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[12.5px] bg-white text-[#37352F] border border-[rgba(55,53,47,0.09)] font-medium shadow-[0_1px_2px_rgba(15,15,15,0.04)]"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[12.5px] font-medium bg-white text-[#1D1D1F] border border-[#D2D2D7] shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
                   >
-                    <span>{hl}</span>
+                    <span>{highlight}</span>
                     <button
                       type="button"
-                      onClick={() => handleRemoveHighlight(hIdx)}
-                      className="p-0.5 hover:bg-red-50 text-[#9B9A97] hover:text-[#DC2626] rounded cursor-pointer transition-colors"
+                      onClick={() => handleRemoveHighlight(highlight)}
+                      className="p-0.5 hover:bg-black/5 text-[#86868B] hover:text-[#1D1D1F] rounded transition-colors cursor-pointer"
+                      title="Remove highlight"
                     >
                       <X className="w-3 h-3" />
                     </button>
@@ -404,13 +351,13 @@ export const DaysTab: React.FC<DaysTabProps> = ({
                     }
                   }}
                   placeholder="Add highlight badge (press Enter)..."
-                  className="h-8 flex-1 px-2.5 text-[13px] bg-white border border-[rgba(55,53,47,0.12)] focus:border-[#2383E2] rounded-md text-[#37352F] placeholder-[#9B9A97] outline-none"
+                  className="h-8 flex-1 px-2.5 text-[13px] bg-white border border-[#D2D2D7] focus:border-[#1D1D1F] rounded-md text-[#1D1D1F] placeholder-[#86868B] outline-none"
                 />
                 {newHighlight.trim() && (
                   <button
                     type="button"
                     onClick={handleAddHighlight}
-                    className="tactile-button-primary h-8 px-3 rounded-md text-[12px] shrink-0"
+                    className="tactile-button-primary h-8 px-3 rounded-md text-[12px] shrink-0 font-medium"
                   >
                     Add
                   </button>

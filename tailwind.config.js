@@ -8,13 +8,13 @@ export default {
     extend: {
       colors: {
         brand: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
+          50: '#F5F5F7',
+          100: '#E5E5EA',
+          500: '#1D1D1F',
+          600: '#000000',
+          700: '#000000',
+          800: '#000000',
+          900: '#000000',
         },
         pdf: {
           navy: '#0A131F',
@@ -26,8 +26,8 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        mono: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        sans: ['"Inter"', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+        mono: ['"Inter"', '"Helvetica Neue"', 'Menlo', 'Monaco', 'monospace'],
         serif: ['Cinzel', 'Playfair Display', 'Georgia', 'serif'],
       }
     },

@@ -176,7 +176,7 @@ export const LiveA4PreviewPane: React.FC<LiveA4PreviewPaneProps> = ({ proposal }
               onClick={() => setCurrentPage(page)}
               className={`w-6 h-6 rounded text-[12px] font-semibold tabular-nums transition-all cursor-pointer ${
                 currentPage === page
-                  ? 'bg-[#0071E3] text-white shadow-xs'
+                  ? 'bg-[#1D1D1F] text-white shadow-xs'
                   : 'bg-[#F5F5F7] text-[#6E6E73] hover:text-[#1D1D1F] hover:bg-[#E5E5EA]'
               }`}
             >
